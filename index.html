@@ -10,13 +10,373 @@
 body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;line-height:1.6}
 header{position:sticky;top:0;z-index:5;background:#080d1cf5;border-bottom:1px solid var(--line);padding:14px 5%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .logo{font-size:23px;font-weight:bold}.logo span{color:#9c8cff}
-nav{display:flex;gap:13px;flex-wrap:wrap}
-nav a{color:#c5cbe0;text-decoration:none;font-size:13px}
-button,.btn{border:0;border-radius:9px;padding:11px 16px;background:linear-gradient(90deg,#7964ef,#4c9de9);color:white;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block;margin:4px 2px}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JobPath AI - Career Platform</title>
+<style>
+:root{--bg:#080d1c;--panel:#111a30;--line:#293653;--purple:#806bfa;--text:#f4f6ff;--muted:#aab5ce}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;line-height:1.6}
+header{position:sticky;top:0;z-index:10;background:#080d1cf5;border-bottom:1px solid var(--line);padding:13px 4%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{font-size:23px;font-weight:bold}.logo span{color:#9c8cff}
+nav{display:flex;gap:12px;flex-wrap:wrap}
+nav a{color:#d5d9e8;text-decoration:none;font-size:13px;padding:5px}
+nav a:hover{color:#aa9cff}
+button,.btn{border:0;border-radius:9px;padding:11px 15px;background:linear-gradient(90deg,#7964ef,#4c9de9);color:white;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block;margin:4px 2px}
 button.secondary,.secondary{background:#202b45;border:1px solid #405071}
-main{padding:25px 5%;max-width:1150px;margin:auto}
-.hero{padding:48px 6%;border-radius:20px;background:radial-gradient(circle at 85% 10%,#443078,transparent 40%),linear-gradient(120deg,#142044,#101528);margin-bottom:25px}
+main{padding:24px 5%;max-width:1150px;margin:auto}
+.hero{padding:45px 6%;border-radius:20px;background:radial-gradient(circle at 85% 10%,#443078,transparent 40%),linear-gradient(120deg,#142044,#101528);margin-bottom:25px}
 .hero h1{font-size:clamp(34px,6vw,58px);line-height:1.12;margin:15px 0}
+.hero p,.muted{color:var(--muted)}
+.tag{color:#c4baff;border:1px solid #6555a0;border-radius:30px;padding:6px 12px;font-size:12px}
+section{margin:32px 0;scroll-margin-top:110px}
+h2{font-size:25px;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:19px}
+.card h3{margin:7px 0}
+.card p{color:var(--muted);font-size:14px}
+.icon{font-size:27px}
+input,textarea,select{width:100%;padding:12px;margin:7px 0 14px;border-radius:8px;background:#080f20;border:1px solid #354363;color:white;font-size:15px}
+label{font-size:13px;color:#c8d0e3}
+.result{white-space:pre-wrap;background:#0a1328;padding:15px;border-radius:9px;margin-top:12px;overflow-wrap:anywhere;min-height:45px}
+.stat{font-size:28px;font-weight:bold;color:#a99aff}
+footer{text-align:center;border-top:1px solid var(--line);padding:25px;color:var(--muted)}
+@media(max-width:600px){header{align-items:flex-start}nav{gap:6px}nav a{font-size:12px}.hero{padding:30px 20px}main{padding:18px 4%}}
+@media print{header,button,.no-print,footer{display:none!important}body{background:white;color:black}.panel,.result{background:white;color:black;border:0}}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">✦ JobPath<span> AI</span></div>
+ <nav>
+  <a href="#dashboard">Dashboard</a>
+  <a href="#jobs">Jobs</a>
+  <a href="#resume">Resume</a>
+  <a href="#skills">Skills</a>
+  <a href="#interview">Interview</a>
+  <a href="#assistant">Assistant</a>
+  <a href="#saved">Saved Jobs</a>
+ </nav>
+ <button class="secondary" onclick="toggleLanguage()" id="langBtn">हिंदी</button>
+</header>
+
+<main>
+<div class="hero">
+ <span class="tag">YOUR CAREER. YOUR FUTURE.</span>
+ <h1>Find Your Path.<br>Build Your Future.</h1>
+ <p>Discover jobs, create resumes and develop skills with JobPath AI.</p>
+ <a class="btn" href="#dashboard">Open Dashboard</a>
+ <a class="btn secondary" href="#jobs">Explore Jobs</a>
+</div>
+
+<section id="dashboard">
+ <h2>Your Dashboard</h2>
+ <p class="muted">Your career progress at a glance.</p>
+ <div class="grid">
+  <div class="card"><div class="icon">📄</div><div class="stat" id="resumeStat">0</div><p>Resume created</p></div>
+  <div class="card"><div class="icon">⭐</div><div class="stat" id="savedStat">0</div><p>Saved jobs</p></div>
+  <div class="card"><div class="icon">🎯</div><div class="stat">6</div><p>Career tools available</p></div>
+ </div>
+</section>
+
+<section id="jobs">
+ <h2>Job Search</h2>
+ <p class="muted">Search sample opportunities by role or skill.</p>
+ <div class="panel">
+  <input id="jobQuery" placeholder="Search: developer, analyst, marketing...">
+  <select id="jobCategory">
+   <option value="all">All categories</option>
+   <option value="technology">Technology</option>
+   <option value="analytics">Analytics</option>
+   <option value="marketing">Marketing</option>
+   <option value="design">Design</option>
+  </select>
+  <button onclick="searchJobs()">Search Jobs</button>
+  <button class="secondary" onclick="showAllJobs()">Show All Jobs</button>
+  <div id="jobResults" class="grid"></div>
+ </div>
+ <p class="muted">Note: These are sample listings, not verified live vacancies.</p>
+</section>
+
+<section id="resume">
+ <h2>Resume Builder</h2>
+ <div class="panel">
+  <label>Full Name</label><input id="fullName" placeholder="Your name">
+  <label>Email</label><input id="email" type="email" placeholder="email@example.com">
+  <label>Phone</label><input id="phone" placeholder="Phone number">
+  <label>Skills</label><input id="resumeSkills" placeholder="Excel, communication, coding">
+  <label>Education and Experience</label><textarea id="education" rows="4" placeholder="Your education and work experience"></textarea>
+  <button onclick="makeResume()">Create Resume</button>
+  <button class="secondary" onclick="downloadResume()">Print / Save PDF</button>
+  <div id="resumeResult" class="result">Your resume preview will appear here.</div>
+ </div>
+</section>
+
+<section id="skills">
+ <h2>Skill Gap Analysis</h2>
+ <p class="muted">Choose your desired career and enter your current skills.</p>
+ <div class="panel">
+  <label>Career goal</label>
+  <select id="careerGoal">
+   <option value="developer">Web Developer</option>
+   <option value="analyst">Data Analyst</option>
+   <option value="marketing">Digital Marketing</option>
+   <option value="designer">UI/UX Designer</option>
+  </select>
+  <label>Your current skills</label>
+  <textarea id="currentSkills" placeholder="Example: HTML, CSS, Excel"></textarea>
+  <button onclick="analyzeSkills()">Analyze My Skills</button>
+  <div id="skillResult" class="result">Your skill analysis will appear here.</div>
+ </div>
+</section>
+
+<section id="interview">
+ <h2>Interview Practice</h2>
+ <div class="panel">
+  <p id="interviewQuestion">Tell me about yourself.</p>
+  <textarea id="interviewAnswer" rows="4" placeholder="Write your answer here..."></textarea>
+  <button onclick="nextQuestion()">Next Question</button>
+  <button class="secondary" onclick="showInterviewTip()">Get Answer Tip</button>
+  <div id="interviewResult" class="result">Practice your answer here.</div>
+ </div>
+</section>
+
+<section id="assistant">
+ <h2>Career Assistant</h2>
+ <p class="muted">Basic offline career guidance. This is not a live AI service.</p>
+ <div class="panel">
+  <textarea id="careerQuestion" rows="3" placeholder="Ask about your career, skills or job preparation..."></textarea>
+  <button onclick="careerAdvice()">Get Career Guidance</button>
+  <div id="adviceResult" class="result">Your career guidance will appear here.</div>
+ </div>
+</section>
+
+<section id="saved">
+ <h2>Saved Jobs</h2>
+ <div id="savedJobs" class="grid"></div>
+</section>
+</main>
+
+<footer>✦ JobPath AI<br>Your career journey starts here.<br>© 2026 JobPath AI</footer>
+
+<script>
+"use strict";
+
+const jobs=[
+ {id:1,title:"Junior Web Developer",company:"Sample Technology",category:"technology",type:"Entry Level",skills:"HTML, CSS, JavaScript"},
+ {id:2,title:"Data Analyst Trainee",company:"Sample Analytics",category:"analytics",type:"Internship",skills:"Excel, SQL, Data"},
+ {id:3,title:"Digital Marketing Assistant",company:"Sample Media",category:"marketing",type:"Entry Level",skills:"SEO, Social Media"},
+ {id:4,title:"UI Designer Intern",company:"Sample Design",category:"design",type:"Internship",skills:"Figma, Design"},
+ {id:5,title:"Frontend Developer",company:"Sample Software",category:"technology",type:"Junior",skills:"HTML, CSS, JavaScript"},
+ {id:6,title:"Junior Data Analyst",company:"Sample Data Co.",category:"analytics",type:"Junior",skills:"Excel, SQL, Python"}
+];
+
+let saved=[];
+try{saved=JSON.parse(localStorage.getItem("jpSaved")||"[]");if(!Array.isArray(saved))saved=[];}catch(e){saved=[];}
+
+let resumeCount=Number(localStorage.getItem("jpResumeCount")||0);
+let qIndex=0;
+let lang="en";
+
+const questions=[
+"Tell me about yourself.",
+"Why should we hire you?",
+"What are your greatest strengths?",
+"Where do you see yourself in five years?",
+"Describe a challenge you solved.",
+"Why do you want this job?"
+];
+
+const skillSets={
+ developer:["HTML","CSS","JavaScript","Git","Responsive Design"],
+ analyst:["Excel","SQL","Statistics","Data Visualization","Python"],
+ marketing:["SEO","Social Media","Content Writing","Analytics","Advertising"],
+ designer:["Figma","Typography","Color Theory","Wireframing","Prototyping"]
+};
+
+function updateStats(){
+ document.getElementById("resumeStat").textContent=resumeCount;
+ document.getElementById("savedStat").textContent=saved.length;
+}
+
+function searchJobs(){
+ const q=document.getElementById("jobQuery").value.trim().toLowerCase();
+ const cat=document.getElementById("jobCategory").value;
+ const matches=jobs.filter(j=>{
+  const text=(j.title+" "+j.company+" "+j.skills+" "+j.type).toLowerCase();
+  return text.includes(q)&&(cat==="all"||j.category===cat);
+ });
+ renderJobs(matches);
+}
+
+function showAllJobs(){
+ document.getElementById("jobQuery").value="";
+ document.getElementById("jobCategory").value="all";
+ renderJobs(jobs);
+}
+
+function renderJobs(list){
+ const area=document.getElementById("jobResults");
+ if(!list.length){area.innerHTML="<p>No sample jobs found. Try another search.</p>";return;}
+ area.innerHTML="";
+ list.forEach(j=>{
+  const card=document.createElement("div");
+  card.className="card";
+  const title=document.createElement("h3");
+  title.textContent=j.title;
+  const company=document.createElement("p");
+  company.textContent=j.company+" · "+j.type;
+  const skills=document.createElement("p");
+  skills.textContent="Skills: "+j.skills;
+  const btn=document.createElement("button");
+  btn.textContent=saved.includes(j.id)?"Saved ✓":"Save Job ☆";
+  btn.onclick=()=>saveJob(j.id);
+  card.append(title,company,skills,btn);
+  area.appendChild(card);
+ });
+}
+
+function saveJob(id){
+ if(!saved.includes(id))saved.push(id);
+ localStorage.setItem("jpSaved",JSON.stringify(saved));
+ showSaved();
+ updateStats();
+ searchJobs();
+}
+
+function showSaved(){
+ const area=document.getElementById("savedJobs");
+ area.innerHTML="";
+ if(!saved.length){area.textContent="No saved jobs yet.";return;}
+ saved.forEach(id=>{
+  const j=jobs.find(x=>x.id===id);
+  if(!j)return;
+  const card=document.createElement("div");
+  card.className="card";
+  const title=document.createElement("h3");
+  title.textContent=j.title;
+  const company=document.createElement("p");
+  company.textContent=j.company;
+  const btn=document.createElement("button");
+  btn.className="secondary";
+  btn.textContent="Remove";
+  btn.onclick=()=>removeJob(id);
+  card.append(title,company,btn);
+  area.appendChild(card);
+ });
+}
+
+function removeJob(id){
+ saved=saved.filter(x=>x!==id);
+ localStorage.setItem("jpSaved",JSON.stringify(saved));
+ showSaved();
+ updateStats();
+ searchJobs();
+}
+
+function makeResume(){
+ const n=document.getElementById("fullName").value.trim();
+ if(!n){alert("Please enter your name.");return;}
+ const e=document.getElementById("email").value.trim();
+ const p=document.getElementById("phone").value.trim();
+ const s=document.getElementById("resumeSkills").value.trim();
+ const d=document.getElementById("education").value.trim();
+ const data={name:n,email:e,phone:p,skills:s,education:d};
+ localStorage.setItem("jpResume",JSON.stringify(data));
+ document.getElementById("resumeResult").textContent=
+ n+"\n"+e+"\n"+p+"\n\nSKILLS\n"+s+"\n\nEDUCATION / EXPERIENCE\n"+d;
+ resumeCount++;
+ localStorage.setItem("jpResumeCount",String(resumeCount));
+ updateStats();
+}
+
+function downloadResume(){
+ const content=document.getElementById("resumeResult").innerText;
+ if(content.includes("preview will appear")){alert("Create your resume first.");return;}
+ const w=window.open("","_blank");
+ if(!w){alert("Allow pop-ups or use Chrome menu > Print.");return;}
+ w.document.write("<html><head><title>My Resume</title></head><body style='font-family:Arial;padding:30px;color:#111'><pre style='white-space:pre-wrap;font:14px Arial;line-height:1.6'></pre></body></html>");
+ w.document.close();
+ w.document.querySelector("pre").textContent=content;
+ setTimeout(()=>{w.focus();w.print();},500);
+}
+
+function analyzeSkills(){
+ const goal=document.getElementById("careerGoal").value;
+ const current=document.getElementById("currentSkills").value.toLowerCase();
+ const missing=skillSets[goal].filter(s=>!current.includes(s.toLowerCase()));
+ document.getElementById("skillResult").textContent=
+ "Recommended skills:\n"+skillSets[goal].join(", ")+
+ "\n\nSkills to learn:\n"+(missing.join(", ")||"Great! You listed all suggested skills.");
+}
+
+function nextQuestion(){
+ qIndex=(qIndex+1)%questions.length;
+ document.getElementById("interviewQuestion").textContent=questions[qIndex];
+ document.getElementById("interviewAnswer").value="";
+ document.getElementById("interviewResult").textContent="Write your answer and ask for a tip.";
+}
+
+function showInterviewTip(){
+ const a=document.getElementById("interviewAnswer").value.trim();
+ document.getElementById("interviewResult").textContent=
+ a?"Tip: Keep your answer clear and specific. Give a real example, explain your role and describe the result.":"First write your answer, then request a tip.";
+}
+
+function careerAdvice(){
+ const q=document.getElementById("careerQuestion").value.trim();
+ if(!q){alert("Please enter a question.");return;}
+ document.getElementById("adviceResult").textContent=
+ "Your question: "+q+
+ "\n\nSuggested career steps:\n"+
+ "1. Choose a clear career goal.\n"+
+ "2. Research the skills required.\n"+
+ "3. Learn through free learning resources.\n"+
+ "4. Build practical projects.\n"+
+ "5. Prepare your resume.\n"+
+ "6. Apply for suitable opportunities.\n\n"+
+ "This is general demo guidance, not an AI-generated answer.";
+}
+
+function toggleLanguage(){
+ lang=lang==="en"?"hi":"en";
+ document.getElementById("langBtn").textContent=lang==="en"?"हिंदी":"English";
+ alert(lang==="hi"?"हिंदी भाषा का सीमित विकल्प चुना गया है। कुछ फीचर अभी अंग्रेज़ी में रहेंगे।":"English selected.");
+}
+
+function restoreResume(){
+ let d=null;
+ try{d=JSON.parse(localStorage.getItem("jpResume")||"null");}catch(e){}
+ if(!d)return;
+ document.getElementById("fullName").value=d.name||"";
+ document.getElementById("email").value=d.email||"";
+ document.getElementById("phone").value=d.phone||"";
+ document.getElementById("resumeSkills").value=d.skills||"";
+ document.getElementById("education").value=d.education||"";
+ document.getElementById("resumeResult").textContent=
+ (d.name||"")+"\n"+(d.email||"")+"\n"+(d.phone||"")+
+ "\n\nSKILLS\n"+(d.skills||"")+
+ "\n\nEDUCATION / EXPERIENCE\n"+(d.education||"");
+}
+
+document.getElementById("jobQuery").addEventListener("keydown",e=>{
+ if(e.key==="Enter")searchJobs();
+});
+
+showAllJobs();
+showSaved();
+updateStats();
+restoreResume();
+</script>
+</body>
+</html>
+height:1.12;margin:15px 0}
 .hero p,.muted{color:var(--muted)}
 .tag{color:#c4baff;border:1px solid #6555a0;border-radius:30px;padding:6px 12px;font-size:12px}
 section{margin:32px 0;scroll-margin-top:100px}
