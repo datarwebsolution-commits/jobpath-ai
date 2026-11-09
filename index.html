@@ -76,6 +76,7 @@ footer{text-align:center;padding:28px;color:#8995b1;border-top:1px solid #202a42
   <label>What career advice do you need?</label>
   <textarea id="question" rows="3" placeholder="Example: How can I become a web developer?"></textarea>
   <button class="btn" onclick="askAI()">Get Career Guidance</button>
+  <button class="btn" onclick="downloadResume()">Download Resume PDF</button>
   <div id="answer" class="result">Your career guidance will appear here.</div>
   <small>This is a basic demo assistant. Live AI connection can be added later.</small>
  </div>
@@ -119,7 +120,17 @@ function askAI(){
  a.textContent="Your question: "+q+
  "\n\nSuggested first steps:\n1. Identify your career goal.\n2. Learn the essential skills.\n3. Build projects to gain practical experience.\n4. Prepare your resume and portfolio.\n5. Apply for relevant opportunities.\n\nThis is a sample response. A real AI assistant needs an AI service connection.";
 }
-function makeResume(){
+function makeResume(){function downloadResume(){
+ const content = document.getElementById('resumeResult').innerText;
+ if(!content || content.includes('preview will appear')){
+   alert('Please create your resume first.');
+   return;
+ }
+ const win = window.open('', '_blank');
+ win.document.write('<html><body style="font-family:Arial;padding:30px;white-space:pre-wrap"><h2>My Resume</h2><div>'+content+'</div></body></html>');
+ win.document.close();
+ win.print();
+ }
  const n=document.getElementById('name').value.trim();
  const e=document.getElementById('email').value.trim();
  const s=document.getElementById('skills').value.trim();
