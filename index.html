@@ -1,53 +1,134 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JobPath AI - Your Career Future</title>
+<title>JobPath AI | Your Future Starts Here</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7ff;color:#172554}
-header{background:#123b82;color:white;padding:22px 16px;text-align:center}
-header h1{margin:0;font-size:30px}
-header p{margin:8px 0 0}
-.hero{text-align:center;padding:55px 18px;background:linear-gradient(135deg,#123b82,#3979df);color:white}
-.hero h2{font-size:32px;margin:0 0 12px}
-.hero p{line-height:1.6}
-button{background:#fff;color:#17458f;border:0;border-radius:8px;padding:13px 22px;font-size:16px;font-weight:bold;margin-top:12px}
-.container{padding:28px 16px;max-width:950px;margin:auto}
-.container h2{text-align:center}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-.card{background:white;padding:22px;border-radius:14px;box-shadow:0 3px 15px #dce4f4}
-.card h3{color:#1752a5}
-footer{text-align:center;background:#123b82;color:white;padding:22px;margin-top:25px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#080d1c;color:#f4f6ff;line-height:1.6}
+header{padding:18px 7%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #202a42;position:sticky;top:0;background:#080d1cf2;z-index:10}
+.logo{font-size:23px;font-weight:800;color:#fff}
+.logo span{color:#8c7bff}
+nav a{color:#c5cbe0;text-decoration:none;margin-left:22px;font-size:14px}
+nav a:hover{color:#9c8cff}
+.hero{padding:85px 7% 75px;background:radial-gradient(circle at 80% 20%,#34236d 0,transparent 38%),linear-gradient(120deg,#101a36,#090e20)}
+.tag{display:inline-block;color:#b9adff;border:1px solid #51448c;padding:7px 14px;border-radius:30px;font-size:12px;margin-bottom:22px}
+h1{font-size:clamp(38px,7vw,68px);line-height:1.12;max-width:750px;margin-bottom:20px}
+.gradient{background:linear-gradient(90deg,#9b8cff,#54d8e8);background-clip:text;color:transparent}
+.hero p{color:#b7c0d8;max-width:590px;font-size:17px;margin-bottom:30px}
+.btn{display:inline-block;background:linear-gradient(90deg,#7964ef,#4c9de9);color:white;padding:13px 22px;border:0;border-radius:10px;text-decoration:none;font-weight:bold;cursor:pointer}
+.btn.secondary{background:#1a2540;border:1px solid #354363;margin-left:8px}
+section{padding:65px 7%}
+.section-title{text-align:center;font-size:32px;margin-bottom:10px}
+.sub{text-align:center;color:#9ca8c5;margin-bottom:35px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:#111a30;border:1px solid #25314d;border-radius:17px;padding:24px}
+.card .emoji{font-size:28px}
+.card h3{margin:12px 0 7px}
+.card p{color:#aab5ce;font-size:14px}
+.card:hover{border-color:#8878ff;transform:translateY(-3px);transition:.2s}
+.panel{max-width:760px;margin:auto;background:#111a30;border:1px solid #293653;border-radius:18px;padding:25px}
+input,textarea{width:100%;padding:13px;margin:8px 0 15px;background:#080f20;border:1px solid #34415f;border-radius:9px;color:white;font-size:15px}
+label{font-size:14px;color:#c4cce0}
+.result{margin-top:18px;padding:15px;background:#0b1428;border-radius:10px;color:#b9d9ff;white-space:pre-wrap}
+.job{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+small{color:#9ba9c7}
+footer{text-align:center;padding:28px;color:#8995b1;border-top:1px solid #202a42}
+@media(max-width:650px){header{padding:15px 5%;}nav a{margin-left:10px;font-size:12px}nav a:nth-child(2){display:none}.hero{padding:65px 6%}section{padding:48px 6%}.btn.secondary{margin:10px 0 0}}
 </style>
 </head>
 <body>
+
 <header>
-<h1>🚀 JobPath AI</h1>
-<p>Your Career. Your Future. Powered by AI.</p>
+ <div class="logo">✦ JobPath<span> AI</span></div>
+ <nav>
+  <a href="#features">Features</a>
+  <a href="#jobs">Jobs</a>
+  <a href="#assistant">AI Assistant</a>
+  <a href="#resume">Resume</a>
+ </nav>
 </header>
-<section class="hero">
-<h2>Build Your Dream Career</h2>
-<p>Find jobs, build your resume and discover your career opportunities with JobPath AI.</p>
-<button onclick="document.getElementById('features').scrollIntoView()">Explore Features</button>
+
+<div class="hero">
+ <div class="tag">✦ YOUR PERSONAL AI CAREER PLATFORM</div>
+ <h1>Your Skills. Your Dreams.<br><span class="gradient">Your Next Career.</span></h1>
+ <p>Discover opportunities, build a professional resume and plan your career journey with JobPath AI.</p>
+ <a class="btn" href="#features">Explore Platform →</a>
+ <a class="btn secondary" href="#assistant">Try Career Assistant</a>
+</div>
+
+<section id="features">
+ <h2 class="section-title">Everything for your career</h2>
+ <p class="sub">One platform. More possibilities.</p>
+ <div class="cards">
+  <div class="card"><div class="emoji">📄</div><h3>AI Resume Builder</h3><p>Create a professional resume with your skills and experience.</p></div>
+  <div class="card"><div class="emoji">🎯</div><h3>Smart Job Search</h3><p>Explore job opportunities that match your interests.</p></div>
+  <div class="card"><div class="emoji">🧠</div><h3>Skill Gap Analysis</h3><p>Discover skills to improve for your dream career.</p></div>
+  <div class="card"><div class="emoji">🎤</div><h3>Interview Practice</h3><p>Prepare for interviews with practice questions.</p></div>
+ </div>
 </section>
-<div class="container" id="features">
-<h2>Our Smart Features</h2>
-<div class="grid">
-<div class="card"><h3>📄 AI Resume Builder</h3><p>Create a professional resume for your dream job.</p></div>
-<div class="card"><h3>💼 Job Search</h3><p>Explore opportunities that match your skills.</p></div>
-<div class="card"><h3>🎯 Skill Gap Analysis</h3><p>Discover skills you need to improve.</p></div>
-<div class="card"><h3>🎤 Interview Coach</h3><p>Prepare for your next job interview.</p></div>
-<div class="card"><h3>🧠 Career Guidance</h3><p>Find the right direction for your future.</p></div>
-<div class="card"><h3>🏢 Recruiter Portal</h3><p>Help companies find suitable candidates.</p></div>
-</div>
-</div>
+
+<section id="assistant">
+ <h2 class="section-title">AI Career Assistant</h2>
+ <p class="sub">Start planning your next career move.</p>
+ <div class="panel">
+  <label>What career advice do you need?</label>
+  <textarea id="question" rows="3" placeholder="Example: How can I become a web developer?"></textarea>
+  <button class="btn" onclick="askAI()">Get Career Guidance</button>
+  <div id="answer" class="result">Your career guidance will appear here.</div>
+  <small>This is a basic demo assistant. Live AI connection can be added later.</small>
+ </div>
+</section>
+
+<section id="resume">
+ <h2 class="section-title">Quick Resume Builder</h2>
+ <p class="sub">Enter your details to create a simple resume preview.</p>
+ <div class="panel">
+  <label>Full Name</label><input id="name" placeholder="Your name">
+  <label>Email</label><input id="email" placeholder="Your email">
+  <label>Skills</label><input id="skills" placeholder="e.g. Communication, Excel, Java">
+  <label>Education / Experience</label><textarea id="education" rows="3" placeholder="Your education or work experience"></textarea>
+  <button class="btn" onclick="makeResume()">Create Resume Preview</button>
+  <div id="resumeResult" class="result">Your resume preview will appear here.</div>
+ </div>
+</section>
+
+<section id="jobs">
+ <h2 class="section-title">Explore Career Opportunities</h2>
+ <p class="sub">Sample job categories to get started.</p>
+ <div class="cards">
+  <div class="card job"><div><h3>Web Developer</h3><small>Technology · Entry Level</small></div><span>💻</span></div>
+  <div class="card job"><div><h3>Data Analyst</h3><small>Analytics · Entry Level</small></div><span>📊</span></div>
+  <div class="card job"><div><h3>Digital Marketing</h3><small>Marketing · All Levels</small></div><span>📱</span></div>
+ </div>
+ <p class="sub" style="margin-top:20px;font-size:12px">These are sample categories, not verified live vacancies.</p>
+</section>
+
 <footer>
-<p>© 2026 JobPath AI. All rights reserved.</p>
-<p>Made with ❤️ for your future.</p>
+ <div class="logo">✦ JobPath<span> AI</span></div>
+ <p>Your career journey starts here.</p>
+ <small>© 2026 JobPath AI · Built for your future</small>
 </footer>
+
+<script>
+function askAI(){
+ const q=document.getElementById('question').value.trim();
+ const a=document.getElementById('answer');
+ if(!q){a.textContent="Please enter your career question first.";return;}
+ a.textContent="Your question: "+q+
+ "\n\nSuggested first steps:\n1. Identify your career goal.\n2. Learn the essential skills.\n3. Build projects to gain practical experience.\n4. Prepare your resume and portfolio.\n5. Apply for relevant opportunities.\n\nThis is a sample response. A real AI assistant needs an AI service connection.";
+}
+function makeResume(){
+ const n=document.getElementById('name').value.trim();
+ const e=document.getElementById('email').value.trim();
+ const s=document.getElementById('skills').value.trim();
+ const d=document.getElementById('education').value.trim();
+ const r=document.getElementById('resumeResult');
+ if(!n){r.textContent="Please enter your name.";return;}
+ r.textContent=n+"\n"+e+"\n\nSKILLS\n"+s+"\n\nEDUCATION / EXPERIENCE\n"+d;
+}
+</script>
 </body>
 </html>
-  
+
