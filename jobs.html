@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Job Search - JobPath AI</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080d1c;color:#f4f6ff;font-family:Arial,sans-serif;line-height:1.6}
+header{padding:18px 5%;background:#111a30;border-bottom:1px solid #293653;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.logo{font-size:23px;font-weight:bold}.logo span{color:#9c8cff}
+main{max-width:1000px;margin:auto;padding:25px 5%}
+h1{font-size:34px}
+p{color:#aab5ce}
+.panel,.card{background:#111a30;border:1px solid #293653;border-radius:14px;padding:18px;margin:14px 0}
+input,select{width:100%;padding:13px;margin:8px 0 14px;border-radius:8px;background:#080f20;border:1px solid #354363;color:white;font-size:16px}
+button,.btn{padding:11px 16px;border:0;border-radius:8px;background:linear-gradient(90deg,#7964ef,#4c9de9);color:white;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block;margin:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card h3{margin:4px 0}
+.card p{font-size:14px}
+.secondary{background:#26334f}
+#message{color:#b9adff}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">✦ JobPath<span> AI</span></div>
+ <a class="btn secondary" href="index.html">← Back to Home</a>
+</header>
+
+<main>
+ <h1>Smart Job Search</h1>
+ <p>Find sample jobs by job title, company, category or skill.</p>
+
+ <div class="panel">
+  <label>Search Job or Skill</label>
+  <input id="query" placeholder="Example: Developer, Excel, HTML">
+  <label>Job Category</label>
+  <select id="category">
+   <option value="all">All Categories</option>
+   <option value="technology">Technology</option>
+   <option value="analytics">Analytics</option>
+   <option value="marketing">Marketing</option>
+   <option value="design">Design</option>
+  </select>
+  <button onclick="searchJobs()">Search Jobs</button>
+  <button class="secondary" onclick="showAll()">Show All Jobs</button>
+  <p id="message"></p>
+ </div>
+
+ <h2>Available Sample Jobs</h2>
+ <div id="results" class="grid"></div>
+
+ <h2>My Saved Jobs</h2>
+ <div id="saved" class="grid"></div>
+ <p>Note: These are sample jobs, not verified live vacancies.</p>
+</main>
+
+<script>
+const jobs=[
+{id:1,title:"Junior Web Developer",company:"Sample Technology",category:"technology",type:"Entry Level",skills:"HTML, CSS, JavaScript"},
+{id:2,title:"Data Analyst Trainee",company:"Sample Analytics",category:"analytics",type:"Internship",skills:"Excel, SQL, Python"},
+{id:3,title:"Digital Marketing Assistant",company:"Sample Media",category:"marketing",type:"Entry Level",skills:"SEO, Social Media"},
+{id:4,title:"UI Designer Intern",company:"Sample Design",category:"design",type:"Internship",skills:"Figma, Design"},
+{id:5,title:"Frontend Developer",company:"Sample Software",category:"technology",type:"Junior",skills:"HTML, CSS, JavaScript"},
+{id:6,title:"Junior Data Analyst",company:"Sample Data Co.",category:"analytics",type:"Junior",skills:"Excel, SQL, Data"}
+];
+
+let saved=[];
+try{saved=JSON.parse(localStorage.getItem("jpSaved")||"[]");if(!Array.isArray(saved))saved=[];}catch(e){saved=[];}
+
+function render(list){
+ const area=document.getElementById("results");
+ area.innerHTML="";
+ if(!list.length){area.textContent="No jobs found. Try another search.";return;}
+ list.forEach(job=>{
+  const card=document.createElement("div");
+  card.className="card";
+  const h=document.createElement("h3");h.textContent=job.title;
+  const company=document.createElement("p");company.textContent=job.company+" · "+job.type;
+  const skills=document.createElement("p");skills.textContent="Skills: "+job.skills;
+  const btn=document.createElement("button");
+  btn.textContent=saved.includes(job.id)?"Saved ✓":"Save Job";
+  btn.onclick=()=>saveJob(job.id);
+  card.append(h,company,skills,btn);
+  area.appendChild(card);
+ });
+ document.getElementById("message").textContent=list.length+" sample job(s) found.";
+}
+
+function searchJobs(){
+ const q=document.getElementById("query").value.trim().toLowerCase();
+ const cat=document.getElementById("category").value;
+ const found=jobs.filter(j=>
+  (j.title+" "+j.company+" "+j.skills+" "+j.type).toLowerCase().includes(q)&&
+  (cat==="all"||j.category===cat)
+ );
+ render(found);
+}
+
+function showAll(){
+ document.getElementById("query").value="";
+ document.getElementById("category").value="all";
+ render(jobs);
+}
+
+function saveJob(id){
+ if(!saved.includes(id))saved.push(id);
+ localStorage.setItem("jpSaved",JSON.stringify(saved));
+ showSaved();
+ searchJobs();
+}
+
+function removeJob(id){
+ saved=saved.filter(x=>x!==id);
+ localStorage.setItem("jpSaved",JSON.stringify(saved));
+ showSaved();
+ searchJobs();
+}
+
+function showSaved(){
+ const area=document.getElementById("saved");
+ area.innerHTML="";
+ const list=jobs.filter(j=>saved.includes(j.id));
+ if(!list.length){area.textContent="No saved jobs yet.";return;}
+ list.forEach(job=>{
+  const card=document.createElement("div");
+  card.className="card";
+  const h=document.createElement("h3");h.textContent=job.title;
+  const p=document.createElement("p");p.textContent=job.company;
+  const btn=document.createElement("button");
+  btn.className="secondary";btn.textContent="Remove";
+  btn.onclick=()=>removeJob(job.id);
+  card.append(h,p,btn);area.appendChild(card);
+ });
+}
+
+document.getElementById("query").addEventListener("keydown",e=>{
+ if(e.key==="Enter")searchJobs();
+});
+showAll();
+showSaved();
+</script>
+</body>
+</html>
